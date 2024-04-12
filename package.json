@@ -15,7 +15,8 @@
     "@tiptap/pm": "^2.3.0",
     "@tiptap/starter-kit": "^2.3.0",
     "@tiptap/vue-3": "^2.3.0",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-3-slider-component": "^0.1.4"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
