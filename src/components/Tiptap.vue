@@ -11,7 +11,8 @@ import { watch } from "vue";
 import { RefSymbol } from "@vue/reactivity";
 import type EditorModel from "../Models/EditorModel";
 import { TextSelection } from "@tiptap/pm/state";
-import {FontSize} from "../FontWeightExtension"
+import {FontSize , FontWeight} from "../FontWeightExtension"
+// import { FontWeight} from "../FontWeightExtension"
 
 const props = defineProps(["editModel"]);
 
@@ -41,7 +42,8 @@ const editor = new Editor({
       types: ["textStyle"],
     }),
     TextStyle,
-    FontSize
+    FontSize,
+    FontWeight
   ],
 
   onSelectionUpdate({ editor }) {
@@ -97,6 +99,21 @@ watch(editModel, (newValue) => {
   if (selectedNode == undefined) {
     return;
   }
+
+
+  let fontWeight = 0
+
+
+  if (newValue.sliderValue == 0) {
+    fontWeight =  10
+  }else{
+    fontWeight = newValue.sliderValue * 10
+  }
+
+  console.log("new font weight is " + fontWeight.toString())
+  editor.commands.setFontWeight(fontWeight.toString())
+
+  return;
   if (newValue.sliderValue > 50) {
     console.log("slider is above 50");
     // const selectedText = editor
@@ -113,14 +130,17 @@ watch(editModel, (newValue) => {
     // editor.commands.setFontFamily("serif");
     editor.chain().setMark("textStyle" , { fontSize: newValue.sliderValue + "px" }).run()
     editor.commands.setBold();
-    editor.commands.setFontSize("80")
+    editor.commands.setFontWeight("700")
+    // editor.commands.setFontSize("80")
+
   } else {
     // editor.commands.setFontFamily("cursive");
     console.log("slider is below 50");
     // editor.chain().focus().unsetBold().run()
     editor.commands.unsetBold();
+    editor.commands.setFontWeight("400")
     // editor.chain().setMark("textStyle" , { fontSize: 10 + "px" }).run()
-    editor.commands.setFontSize("10")
+    // editor.commands.setFontSize("10")
   }
 });
 </script>
