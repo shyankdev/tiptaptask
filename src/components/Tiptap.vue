@@ -93,6 +93,16 @@ const editor = new Editor({
   },
 });
 
+watch( () => editModel.exportGetTextSignal , (newVal , oldVal) => {
+  const txt = editor.getText() 
+  const html = editor.getHTML()
+  const attribute = editor.getAttributes("span")
+  console.log("exported text is " + txt)
+  console.log("exported htnl is " + html)
+  console.log("exported attr is ")
+  console.log(attribute)
+})
+
 watch(() => editModel.sliderValue , (newValue , oldValue) => {
 
   if (selectedNode == undefined) {
@@ -109,7 +119,7 @@ watch(() => editModel.sliderValue , (newValue , oldValue) => {
     fontWeight = newValue * 10
   }
 
-  console.log("new font weight is " + fontWeight.toString())
+  // console.log("new font weight is " + fontWeight.toString())
   editor.commands.setFontWeight(fontWeight.toString())
 
   return;

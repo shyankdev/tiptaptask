@@ -30,6 +30,7 @@ import SelectionEditor from "./components/SelectionEditor.vue";
 const createEditorModel = (): EditorModel => ({
   selectedNode: undefined,
   sliderValue: 0,
+  exportGetTextSignal : false,
 });
 
 import type EditorModel from "./Models/EditorModel";

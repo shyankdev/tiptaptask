@@ -5,7 +5,7 @@
       <VueSlider v-model="editModel.sliderValue" />
       <p class="text-white">Value: {{ editModel.sliderValue }}</p>
     </span>
-    <button class="text-white">export with get text</button>
+    <button @click="exportTextHadler" class="text-white">export with get text</button>
   </div>
 </template>
 
@@ -16,7 +16,11 @@ import type EditorModel from "../Models/EditorModel";
 
 const props = defineProps(["editModel"])
 
-const editModel : Ref<EditorModel> = props.editModel
+const editModel : EditorModel = props.editModel
 
+
+const exportTextHadler = () => {
+  editModel.exportGetTextSignal = !editModel.exportGetTextSignal
+}
 
 </script>
