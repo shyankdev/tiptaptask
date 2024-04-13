@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Editor, EditorContent, useEditor } from "@tiptap/vue-3";
+// import {TextSelection} from '@tiptap/vue-3'
 import StarterKit from "@tiptap/starter-kit";
 import PlaceHolder from "@tiptap/extension-placeholder";
 import Focus from "@tiptap/extension-focus";
@@ -7,6 +8,7 @@ import Focus from "@tiptap/extension-focus";
 import { watch } from "vue";
 import { RefSymbol } from "@vue/reactivity";
 import type EditorModel from "../Models/EditorModel";
+import { TextSelection } from "@tiptap/pm/state";
 
 const props = defineProps(["editModel"]);
 
@@ -49,15 +51,19 @@ const editor = new Editor({
       editModel.selectedNode = undefined;
       return;
     }
-    const selectedItem: Object = editor.chain().focus();
+
+    const selectedItem = editor.view.state.selection
+
+    // const selectedItem: Object = editor.chain().focus();
     // editor.chain().focus().setBold().run()
     // selectedItem.toggleBold().run()
 
     // const count = selectedItem.toString.length;
 
     // console.log("selection item has a lenght of " + count);
-
+    console.log("slected item is " + selectedItem.content.toString)
     editModel.selectedNode = selectedItem;
+
     // editModel.sliderValue = 0
     // The selection has changed.
   },
