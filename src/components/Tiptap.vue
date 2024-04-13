@@ -82,25 +82,17 @@ const editor = new Editor({
     selectedNode = newNode;
     console.log("newly created node is ");
     console.log(newNode);
-    // editor.chain().focus().setBold().run()
-    // selectedItem.toggleBold().run()
-
-    // const count = selectedItem.toString.length;
-
-    // console.log("selection item has a lenght of " + count);
 
     editModel.selectedNode = selectedItem;
-    // const msg = selec.toJSON()
+
     console.log("hall selected length is ");
     console.log(selec.toJSON());
-    // const fromLoc = selec.from
-    // const toLoc = selec.to
+    
     console.log("locaton for selection are ");
     console.log(fromLoc);
     console.log(toLoc);
 
-    // editModel.sliderValue = 0
-    // The selection has changed.
+    
   },
 });
 
