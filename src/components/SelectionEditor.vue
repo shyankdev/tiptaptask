@@ -1,20 +1,26 @@
 <template>
   <div class="flex justify-between rounded-lg p-4 m-4">
     <span class="text-white">font weight slider</span>
-
-    <!-- <h1 class="text-white">export </h1> -->
     <span grow>
-      <VueSlider v-model="value" />
-      <p class="text-white">Value: {{ value }}</p>
+      <VueSlider v-model="editModel.sliderValue" />
+      <p class="text-white">Value: {{ editModel.sliderValue }}</p>
     </span>
-
     <button class="text-white">export with get text</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
+import { ref, watch, type Ref } from "vue";
 import VueSlider from "vue-3-slider-component";
 
-const value: Ref<Number> = ref(0);
+const props = defineProps(["editModel"])
+
+const editModel : Ref<EditorModel> = props.editModel
+
+// const value: Ref<Number> = ref(0);
+
+// watch(value , (newValue) => {
+//   console.log("new slider value is " + value.value.toString)
+// })
+
 </script>

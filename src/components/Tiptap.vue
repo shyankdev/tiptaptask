@@ -27,30 +27,31 @@ const editor = useEditor({
   },
   onCreate({ editor }) {
     // The editor is ready.
-    console.log("on create edotpr")
+    // console.log("on create edotpr")
   },
   onUpdate({ editor }) {
     // The content has changed.
-    console.log("on update editor")
+    // console.log("on update editor")
   },
   onSelectionUpdate({ editor }) {
-    console.log("on selection update editor")
+    // console.log("on selection update editor")
+    console.log(editor.chain().focus())
     // The selection has changed.
   },
   onTransaction({ editor, transaction }) {
-    console.log("on transaction editor")
+    // console.log("on transaction editor")
     // The editor state has changed.
   },
   onFocus({ editor, event }) {
-    console.log("on focus editor")
+    // console.log("on focus editor")
     // The editor is focused.
   },
   onBlur({ editor, event }) {
-    console.log("on blur editor")
+    // console.log("on blur editor")
     // The editor isn’t focused anymore.
   },
   onDestroy() {
-    console.log("on destroy editor")
+    // console.log("on destroy editor")
     // The editor is being destroyed.
   },
 });
