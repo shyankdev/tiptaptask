@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { Editor, EditorContent, useEditor } from "@tiptap/vue-3";
+import { Editor, EditorContent, useEditor, Node } from "@tiptap/vue-3";
 // import {TextSelection} from '@tiptap/vue-3'
 import StarterKit from "@tiptap/starter-kit";
 import PlaceHolder from "@tiptap/extension-placeholder";
 import Focus from "@tiptap/extension-focus";
+import FontFamily from "@tiptap/extension-font-family";
+import TextStyle from "@tiptap/extension-text-style";
 // import { run } from "node:test";
 import { watch } from "vue";
 import { RefSymbol } from "@vue/reactivity";
@@ -16,8 +18,11 @@ const editModel: EditorModel = props.editModel;
 console.log("edit mode  in tiptap class is ");
 console.log(editModel);
 
+let selectedNode: Node<any, any> | undefined = undefined;
+
 // const aka = new Editor({})
 // const editor = useEditor({
+
 const editor = new Editor({
   content: "",
   extensions: [
@@ -31,73 +36,87 @@ const editor = new Editor({
       mode: "deepest",
       // mode: 'all',
     }),
+    FontFamily.configure({
+      types: ["textStyle"],
+    }),
+    TextStyle,
   ],
-  onBeforeCreate({ editor }) {
-    // Before the view is created.
-    // console.log("on before create editor")
-  },
-  onCreate({ editor }) {
-    // The editor is ready.
-    // console.log("on create edotpr")
-  },
-  onUpdate({ editor }) {
-    // The content has changed.
-    // console.log("on update editor")
-  },
+
   onSelectionUpdate({ editor }) {
     console.log("on selection update editor");
     // console.log(editor.chain().focus())
-    if (editor.isEmpty) {
+    // if (editor.isEmpty) {
+    //   editModel.selectedNode = undefined;
+    //   return;
+    // }
+    const selec = editor.view.state.selection;
+    const fromLoc = selec.from;
+    const toLoc = selec.to;
+
+    if (fromLoc == toLoc) {
       editModel.selectedNode = undefined;
       return;
     }
 
-    const selectedItem = editor.view.state.selection
+    const selectedItem: Object = editor.chain().focus();
 
-    // const selectedItem: Object = editor.chain().focus();
+    const newNode = Node.create({
+      from: fromLoc,
+      to: toLoc,
+    });
+    selectedNode = newNode;
+    console.log("newly created node is ");
+    console.log(newNode);
     // editor.chain().focus().setBold().run()
     // selectedItem.toggleBold().run()
 
     // const count = selectedItem.toString.length;
 
     // console.log("selection item has a lenght of " + count);
-    console.log("slected item is " + selectedItem.content.toString)
+
     editModel.selectedNode = selectedItem;
+    // const msg = selec.toJSON()
+    console.log("hall selected length is ");
+    console.log(selec.toJSON());
+    // const fromLoc = selec.from
+    // const toLoc = selec.to
+    console.log("locaton for selection are ");
+    console.log(fromLoc);
+    console.log(toLoc);
 
     // editModel.sliderValue = 0
     // The selection has changed.
-  },
-  onTransaction({ editor, transaction }) {
-    // console.log("on transaction editor")
-    // The editor state has changed.
-  },
-  onFocus({ editor, event }) {
-    // console.log("on focus editor")
-    // The editor is focused.
-  },
-  onBlur({ editor, event }) {
-    // console.log("on blur editor")
-    // The editor isn’t focused anymore.
-  },
-  onDestroy() {
-    // console.log("on destroy editor")
-    // The editor is being destroyed.
   },
 });
 
 watch(editModel, (newValue) => {
   // const { selection, state } = editor
 
+  if (selectedNode == undefined) {
+    return;
+  }
   if (newValue.sliderValue > 50) {
     console.log("slider is above 50");
-    // editor.chain().focus().setBold().run()
-    // editor.chain().focus().setBold().run()
+    // const selectedText = editor
+    const selec = editor.view.state.selection;
+    const fromLoc = selec.from;
+    const toLoc = selec.to;
 
+    // editor.chain().focus().setBold().run()
+    // editor.chain().focus()
+    // editor.commands.setTextSelection(  )
+    // editor.chain().focus().setBold().run()
+    // editor.chain().focus().setBold().run()
+    // editor.chain().focus().command.set
+    // editor.commands.setFontFamily("serif");
+    editor.chain().setMark("textStyle" , { fontSize: newValue.sliderValue + "px" }).run()
     editor.commands.setBold();
   } else {
+    // editor.commands.setFontFamily("cursive");
     console.log("slider is below 50");
     // editor.chain().focus().unsetBold().run()
     editor.commands.unsetBold();
+    editor.chain().setMark("textStyle" , { fontSize: 10 + "px" }).run()
   }
 });
 </script>

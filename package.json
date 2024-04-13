@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tiptap/extension-focus": "^2.3.0",
+    "@tiptap/extension-font-family": "^2.3.0",
     "@tiptap/extension-placeholder": "^2.3.0",
     "@tiptap/extension-text-style": "^2.3.0",
     "@tiptap/pm": "^2.3.0",
