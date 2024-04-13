@@ -11,6 +11,7 @@ import { watch } from "vue";
 import { RefSymbol } from "@vue/reactivity";
 import type EditorModel from "../Models/EditorModel";
 import { TextSelection } from "@tiptap/pm/state";
+import {FontSize} from "../FontWeightExtension"
 
 const props = defineProps(["editModel"]);
 
@@ -40,6 +41,7 @@ const editor = new Editor({
       types: ["textStyle"],
     }),
     TextStyle,
+    FontSize
   ],
 
   onSelectionUpdate({ editor }) {
@@ -111,12 +113,14 @@ watch(editModel, (newValue) => {
     // editor.commands.setFontFamily("serif");
     editor.chain().setMark("textStyle" , { fontSize: newValue.sliderValue + "px" }).run()
     editor.commands.setBold();
+    editor.commands.setFontSize("80")
   } else {
     // editor.commands.setFontFamily("cursive");
     console.log("slider is below 50");
     // editor.chain().focus().unsetBold().run()
     editor.commands.unsetBold();
-    editor.chain().setMark("textStyle" , { fontSize: 10 + "px" }).run()
+    // editor.chain().setMark("textStyle" , { fontSize: 10 + "px" }).run()
+    editor.commands.setFontSize("10")
   }
 });
 </script>
