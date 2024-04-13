@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between rounded-lg p-4 m-4">
+  <div class="flex justify-between rounded-lg h-24">
     <span class="text-white">font weight slider</span>
     <span grow>
       <VueSlider v-model="editModel.sliderValue" />

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Editor, EditorContent, useEditor, Node } from "@tiptap/vue-3";
+import { Editor, EditorContent, Node } from "@tiptap/vue-3";
 // import {TextSelection} from '@tiptap/vue-3'
 import StarterKit from "@tiptap/starter-kit";
 import PlaceHolder from "@tiptap/extension-placeholder";
@@ -25,6 +25,16 @@ let selectedNode: Node<any, any> | undefined = undefined;
 // const aka = new Editor({})
 // const editor = useEditor({
 
+const CustomNode = Node.create({
+  name: 'customNode',
+
+  group: 'inline',
+
+  inline: true,
+
+  // Your code goes here.
+})
+
 const editor = new Editor({
   content: "",
   extensions: [
@@ -43,7 +53,8 @@ const editor = new Editor({
     }),
     TextStyle,
     FontSize,
-    FontWeight
+    FontWeight ,
+    CustomNode
   ],
 
   onSelectionUpdate({ editor }) {
@@ -96,6 +107,7 @@ const editor = new Editor({
 watch( () => editModel.exportGetTextSignal , (newVal , oldVal) => {
   const txt = editor.getText() 
   const html = editor.getHTML()
+  
   const attribute = editor.getAttributes("span")
   console.log("exported text is " + txt)
   console.log("exported htnl is " + html)

@@ -1,8 +1,14 @@
 <template>
   <main class="h-screen w-screen bg-gray-900">
     <HeadComponent />
-    <div v-if="isObjectSelected">
+    <div class="h-12">
+
+    </div>
+    <div v-if="isObjectSelected" >
       <SelectionEditor :editModel="editModel"/>
+    </div>
+    <div v-else class="h-24">
+
     </div>
  
     <!-- <SelectionEditor :editModel="editModel"/> -->
