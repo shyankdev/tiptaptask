@@ -1,9 +1,15 @@
 <template>
   <main class="h-screen w-screen bg-gray-900">
-    <HeadComponent/>
-    <SelectionEditor :editModel="editModel"/>
+    <HeadComponent />
+    <div v-if="isObjectSelected">
+      <SelectionEditor :editModel="editModel"/>
+    </div>
+ 
+    <!-- <SelectionEditor :editModel="editModel"/> -->
+
+    <!-- (editModel.value.selectedNode == ) -->
     <div class="p-4 m-4 rounded-lg bg-white">
-      <TipTap/>
+      <TipTap :editModel="editModel"/>
     </div>
 
     
@@ -13,7 +19,7 @@
 
 <script setup lang="ts">
 // TypeScript enabled
-import { ref, watch, type Ref } from "vue";
+import { ref, watch, type Ref , computed } from "vue";
 import TipTap from "./components/Tiptap.vue";
 
 import HeadComponent from "./components/HeadComponent.vue";
@@ -25,9 +31,16 @@ const createEditorModel = (): EditorModel => ({
 });
 
 const editModel : Ref<EditorModel> = ref(createEditorModel())
+// const isObjectSelected : Ref<boolean> = ref(false)
+
+  const isObjectSelected = computed(() => {
+  return typeof editModel.value.selectedNode === 'object' && editModel.value.selectedNode !== null;
+});
 
 watch(editModel.value , (newVal) => {
   console.log("updated slider vlaue is " + newVal.sliderValue)
 })
+
+
 
 </script>
