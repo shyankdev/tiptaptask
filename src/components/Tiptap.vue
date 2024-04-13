@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Editor, EditorContent, Node } from "@tiptap/vue-3";
 // import {TextSelection} from '@tiptap/vue-3'
-import { ref } from "vue";
+import { ref , onMounted, onBeforeUnmount} from "vue";
 import StarterKit from "@tiptap/starter-kit";
 import PlaceHolder from "@tiptap/extension-placeholder";
 import Focus from "@tiptap/extension-focus";
@@ -26,18 +26,7 @@ let selectedNode: Node<any, any> | undefined = undefined;
 
 const fromLoc = ref(0);
 const toLoc = ref(0);
-// const aka = new Editor({})
-// const editor = useEditor({
 
-const CustomNode = Node.create({
-  name: "customNode",
-
-  group: "inline",
-
-  inline: true,
-
-  // Your code goes here.
-});
 
 const editor = new Editor({
   content: "",
@@ -58,8 +47,10 @@ const editor = new Editor({
     TextStyle,
     FontSize,
     FontWeight,
-    CustomNode,
+
   ],
+
+
 
   onSelectionUpdate({ editor }) {
     console.log("on selection update editor");
@@ -97,6 +88,8 @@ const editor = new Editor({
     console.log(toLoc.value);
   },
 });
+
+
 
 watch(
   () => editModel.exportGetTextSignal,
@@ -150,14 +143,6 @@ watch(
     if (selectedNode == undefined) {
       return;
     }
-
-    // if ((fromLoc.value == 0 && toLoc.value == 0) == false) {
-    //   editor.chain().focus().setNode("customNode");
-    //   console.log("created custom node");
-    //   fromLoc.value = 0;
-    //   toLoc.value = 0;
-    // }
-
     let fontWeight = 0;
 
     if (newValue == 0) {
