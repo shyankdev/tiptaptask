@@ -138,56 +138,7 @@ watch(() => editModel.sliderValue , (newValue , oldValue) => {
   
 })
 
-// watch(editModel, (newValue) => {
-//   // const { selection, state } = editor
 
-//   if (selectedNode == undefined) {
-//     return;
-//   }
-
-
-//   let fontWeight = 0
-
-
-//   if (newValue.sliderValue == 0) {
-//     fontWeight =  10
-//   }else{
-//     fontWeight = newValue.sliderValue * 10
-//   }
-
-//   console.log("new font weight is " + fontWeight.toString())
-//   editor.commands.setFontWeight(fontWeight.toString())
-
-//   return;
-//   if (newValue.sliderValue > 50) {
-//     console.log("slider is above 50");
-//     // const selectedText = editor
-//     const selec = editor.view.state.selection;
-//     const fromLoc = selec.from;
-//     const toLoc = selec.to;
-
-//     // editor.chain().focus().setBold().run()
-//     // editor.chain().focus()
-//     // editor.commands.setTextSelection(  )
-//     // editor.chain().focus().setBold().run()
-//     // editor.chain().focus().setBold().run()
-//     // editor.chain().focus().command.set
-//     // editor.commands.setFontFamily("serif");
-//     editor.chain().setMark("textStyle" , { fontSize: newValue.sliderValue + "px" }).run()
-//     editor.commands.setBold();
-//     editor.commands.setFontWeight("700")
-//     // editor.commands.setFontSize("80")
-
-//   } else {
-//     // editor.commands.setFontFamily("cursive");
-//     console.log("slider is below 50");
-//     // editor.chain().focus().unsetBold().run()
-//     editor.commands.unsetBold();
-//     editor.commands.setFontWeight("400")
-//     // editor.chain().setMark("textStyle" , { fontSize: 10 + "px" }).run()
-//     // editor.commands.setFontSize("10")
-//   }
-// });
 </script>
 
 <template>
