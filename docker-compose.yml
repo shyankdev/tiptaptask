@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  tiptap:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tiptap-app-image
+    ports:
+      - "3000:5173"
