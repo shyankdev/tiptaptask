@@ -34,3 +34,15 @@
 1. open project folder in terminal
 2. run this cmd -> npm run dev
 3. visit localhost:5173
+
+## user guide
+
+#### this is a single page vue application, where user can enter any text based input in the editor present on the main page, once user selects/highlight any word/alphabet on the editor, a hidden bar will be visible from where user can increase font weight of selected word with slider present in the middle of the bar, and at right most this bar has a button which will save a json file with list of modified words with their font weight
+
+## how to use the dashboard
+
+1. open app in the browser
+2. enter some text in the editor
+3. select/highlight any set of charcters or word to make editing bbar visible
+4. toggle font weight with slider present in the editing bar
+5. clik 'export with get text' button to download a json file with array of words with font weight
