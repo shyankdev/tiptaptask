@@ -2,20 +2,32 @@
 import { Editor, EditorContent, useEditor } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import PlaceHolder from "@tiptap/extension-placeholder";
+import Focus from "@tiptap/extension-focus";
+// import { run } from "node:test";
+import { watch } from "vue";
+import { RefSymbol } from "@vue/reactivity";
+import type EditorModel from "../Models/EditorModel";
 
+const props = defineProps(["editModel"]);
 
-const props = defineProps(["editModel"])
+const editModel: EditorModel = props.editModel;
+console.log("edit mode  in tiptap class is ");
+console.log(editModel);
 
-const editModel : EditorModel = props.editModel
-console.log("edit mode  in tiptap class is ")
-console.log(editModel)
-const editor = useEditor({
+// const aka = new Editor({})
+// const editor = useEditor({
+const editor = new Editor({
   content: "",
   extensions: [
     StarterKit,
     PlaceHolder.configure({
       emptyEditorClass: "is-editor-empty",
       placeholder: "write here",
+    }),
+    Focus.configure({
+      // className: 'has-focus',
+      mode: "deepest",
+      // mode: 'all',
     }),
   ],
   onBeforeCreate({ editor }) {
@@ -29,26 +41,29 @@ const editor = useEditor({
   onUpdate({ editor }) {
     // The content has changed.
     // console.log("on update editor")
-    
   },
   onSelectionUpdate({ editor }) {
-    // console.log("on selection update editor")
+    console.log("on selection update editor");
     // console.log(editor.chain().focus())
     if (editor.isEmpty) {
-      editModel.selectedNode = undefined
-      return
+      editModel.selectedNode = undefined;
+      return;
     }
-    const selectedItem : Object = editor.chain().focus()
+    const selectedItem: Object = editor.chain().focus();
+    // editor.chain().focus().setBold().run()
+    // selectedItem.toggleBold().run()
 
-    editModel.selectedNode = selectedItem
+    // const count = selectedItem.toString.length;
 
+    // console.log("selection item has a lenght of " + count);
+
+    editModel.selectedNode = selectedItem;
+    // editModel.sliderValue = 0
     // The selection has changed.
   },
   onTransaction({ editor, transaction }) {
     // console.log("on transaction editor")
     // The editor state has changed.
-    
-    
   },
   onFocus({ editor, event }) {
     // console.log("on focus editor")
@@ -62,6 +77,22 @@ const editor = useEditor({
     // console.log("on destroy editor")
     // The editor is being destroyed.
   },
+});
+
+watch(editModel, (newValue) => {
+  // const { selection, state } = editor
+
+  if (newValue.sliderValue > 50) {
+    console.log("slider is above 50");
+    // editor.chain().focus().setBold().run()
+    // editor.chain().focus().setBold().run()
+
+    editor.commands.setBold();
+  } else {
+    console.log("slider is below 50");
+    // editor.chain().focus().unsetBold().run()
+    editor.commands.unsetBold();
+  }
 });
 </script>
 

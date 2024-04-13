@@ -24,11 +24,16 @@ import TipTap from "./components/Tiptap.vue";
 
 import HeadComponent from "./components/HeadComponent.vue";
 import SelectionEditor from "./components/SelectionEditor.vue";
+// import { nodes } from "@tiptap/pm/schema-basic";
+// import EditorModel from './Models/EditorModel'
 
 const createEditorModel = (): EditorModel => ({
   selectedNode: undefined,
   sliderValue: 0,
+  nodes : [],
 });
+
+import type EditorModel from "./Models/EditorModel";
 
 const editModel : Ref<EditorModel> = ref(createEditorModel())
 // const isObjectSelected : Ref<boolean> = ref(false)
@@ -37,9 +42,9 @@ const editModel : Ref<EditorModel> = ref(createEditorModel())
   return typeof editModel.value.selectedNode === 'object' && editModel.value.selectedNode !== null;
 });
 
-watch(editModel.value , (newVal) => {
-  console.log("updated slider vlaue is " + newVal.sliderValue)
-})
+// watch(editModel.value , (newVal) => {
+//   console.log("updated slider vlaue is " + newVal.sliderValue)
+// })
 
 
 
