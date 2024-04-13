@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Editor, EditorContent, Node } from "@tiptap/vue-3";
 // import {TextSelection} from '@tiptap/vue-3'
-import { ref , onMounted, onBeforeUnmount} from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import StarterKit from "@tiptap/starter-kit";
 import PlaceHolder from "@tiptap/extension-placeholder";
 import Focus from "@tiptap/extension-focus";
@@ -27,7 +27,6 @@ let selectedNode: Node<any, any> | undefined = undefined;
 const fromLoc = ref(0);
 const toLoc = ref(0);
 
-
 const editor = new Editor({
   content: "",
   extensions: [
@@ -47,10 +46,7 @@ const editor = new Editor({
     TextStyle,
     FontSize,
     FontWeight,
-
   ],
-
-
 
   onSelectionUpdate({ editor }) {
     console.log("on selection update editor");
@@ -89,8 +85,6 @@ const editor = new Editor({
   },
 });
 
-
-
 watch(
   () => editModel.exportGetTextSignal,
   (newVal, oldVal) => {
@@ -98,44 +92,88 @@ watch(
     const html = editor.getHTML();
 
     // const attribute = editor.getAttributes("span")
-    console.log("exported text is " + txt)
-    console.log("exported htnl is " + html)
+    console.log("exported text is " + txt);
+    console.log("exported htnl is " + html);
     // console.log("exported attr is ")
     // console.log(attribute)
 
     let doc = editor.view.state.doc;
-    const marksSet = new Set();
+
+    let words: Array<{ [key: string]: any }>  = [];
 
     doc.descendants((node) => {
       if (node.isText) {
-      node.marks.forEach((mark) => {
-        // marksSet.add(mark.type); // Add the mark type to the Set
-        console.log("mark found")
-        console.log(node.type.name)
-        console.log(mark.toJSON())
-        console.log(mark.attrs)
-        console.log(node.text)
-      });
-    }
-    })
+        node.marks.forEach((mark) => {
+          // marksSet.add(mark.type); // Add the mark type to the Set
+          // console.log("mark found");
+          // console.log(node.type.name);
+          // console.log(mark.toJSON()); // attrs key in object have another obbject and in that key fontWeight have weight string
+          // console.log(mark.attrs);
+          // console.log(node.text); // actual text
 
-    // console.log(marksSet);
+          let markJson : { [key: string]: any }  = mark.toJSON();
+          // let aka = markJson.valueOf("vfd")
+          console.log(markJson)
+          let attrs = markJson["attrs"] as { [key: string]: any } | undefined;
+          console.log(attrs)
+          if (attrs == undefined) {return}
+          
+          let fontWeight = attrs["fontWeight"] as String | undefined
 
-    // if (marks != null) {
-    //   for (const mark of marks) {
-    //     console.log(mark)
-    //   }
-    // }else{
-    //   console.log("no marks found")
-    // }
+          if (fontWeight == undefined) {
+            return
+          }
 
-    // editor.view.state.doc.nodesBetween(selection.from, selection.to, node => {
-    //             if (node.type.name === 'text' && node.marks.length > 0) {
-    //              // do something with node.marks
-    //             }
-    //           })
+          let text = node.text
+          if (text == undefined) {return}
+          console.log(node.text)
+          console.log(fontWeight)
+
+          let newWord : { [key: string]: any } = {
+            "text" : node.text , 
+            "fontWeight": fontWeight
+          }
+          words.push(newWord)
+          // if hask
+          // let weight = attrs
+          // let newWord = []
+        });
+        console.log("final word list ")
+        console.log(words)
+
+        downloadArrayAsFile(words , "words")
+      }
+    });
   }
 );
+
+function downloadArrayAsFile(data: any[], fileName: string) {
+  // Convert array to JSON string
+  const jsonData = JSON.stringify(data, null, 2);
+
+  // Create Blob from JSON string
+  const blob = new Blob([jsonData], { type: 'application/json' });
+
+  // Create object URL for the Blob
+  const url = URL.createObjectURL(blob);
+
+  // Create a download link
+  const downloadLink = document.createElement('a');
+  downloadLink.href = url;
+  downloadLink.download = fileName;
+
+  // Append the download link to the body
+  document.body.appendChild(downloadLink);
+
+  // Trigger the click event to initiate download
+  downloadLink.click();
+
+  // Cleanup: remove the download link and revoke the object URL
+  document.body.removeChild(downloadLink);
+  URL.revokeObjectURL(url);
+}
+
+
 
 watch(
   () => editModel.sliderValue,
@@ -161,7 +199,7 @@ watch(
 
 <template>
   <!-- <editor-content class="h-40" :editor="editor" /> -->
-  <div class=" max-h-96 overflow-auto">
+  <div class="max-h-96 overflow-auto">
     <!-- Tiptap editor component -->
     <editor-content :editor="editor" />
   </div>
