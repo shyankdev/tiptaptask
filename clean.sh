@@ -1,0 +1,1 @@
+docker image rm tiptap-app-image
