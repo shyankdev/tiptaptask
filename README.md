@@ -1,33 +1,20 @@
-# vue-project
+# TipTap editor enhancment task
 
-This template should help get you started developing with Vue 3 in Vite.
+## structure
 
-## Recommended IDE Setup
+1. project has been setup using Vue js, with Vite as project bundler, and typscript is used as primary language in the project
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+2. Docker setup has been provided to run this code on any machine which has docker installed, although project can be run without doccker
 
-## Type Support for `.vue` Imports in TS
+## how to run
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### 1. Using Docker (recommended)
 
-## Customize configuration
+start server : run this cmd -> bash setup.sh, then visit localhost:3000 ,
+this script will build docker file, and start vite server for you in docker container, from where you can access the editor itself
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+stop server : run this cmd -> bash stop.sh, this will stop vite server, and destroy docker created resources
 
-## Project Setup
+### 2. Using Vite cmd directly
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+run this cmd -> npm run dev, it will give you a localhost address where you will be able to check the editor
