@@ -175,5 +175,9 @@ watch(
 </script>
 
 <template>
-  <editor-content :editor="editor" />
+  <!-- <editor-content class="h-40" :editor="editor" /> -->
+  <div class=" max-h-96 overflow-auto">
+    <!-- Tiptap editor component -->
+    <editor-content :editor="editor" />
+  </div>
 </template>
