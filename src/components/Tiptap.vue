@@ -135,34 +135,7 @@ watch(() => editModel.sliderValue , (newValue , oldValue) => {
   editor.commands.setFontWeight(fontWeight.toString())
 
   return;
-  if (newValue > 50) {
-    console.log("slider is above 50");
-    // const selectedText = editor
-    const selec = editor.view.state.selection;
-    const fromLoc = selec.from;
-    const toLoc = selec.to;
-
-    // editor.chain().focus().setBold().run()
-    // editor.chain().focus()
-    // editor.commands.setTextSelection(  )
-    // editor.chain().focus().setBold().run()
-    // editor.chain().focus().setBold().run()
-    // editor.chain().focus().command.set
-    // editor.commands.setFontFamily("serif");
-    editor.chain().setMark("textStyle" , { fontSize: newValue + "px" }).run()
-    editor.commands.setBold();
-    editor.commands.setFontWeight("700")
-    // editor.commands.setFontSize("80")
-
-  } else {
-    // editor.commands.setFontFamily("cursive");
-    console.log("slider is below 50");
-    // editor.chain().focus().unsetBold().run()
-    editor.commands.unsetBold();
-    editor.commands.setFontWeight("400")
-    // editor.chain().setMark("textStyle" , { fontSize: 10 + "px" }).run()
-    // editor.commands.setFontSize("10")
-  }
+  
 })
 
 // watch(editModel, (newValue) => {
